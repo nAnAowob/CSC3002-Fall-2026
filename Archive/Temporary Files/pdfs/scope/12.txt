@@ -1,0 +1,614 @@
+
+--- PAGE 1 ---
+CSC3002
+C/C++ Programming 
+Stream
+Prof. Dr. RuizhiChen，SDS
+Office: TxC 717
+E-mail：chenruizhi@cuhk.edu.cn
+1
+
+--- PAGE 2 ---
+1  Formatted output
+1  Formatted output
+2  Formatted input
+2  Formatted input
+3  Data files
+3  Data files
+4  String Streams
+4  String Streams
+
+--- PAGE 3 ---
+Introduction to the C++ Standard Libraries
+• A collection of classes and functions, which are written in the core language 
+and part of the C++ ISO Standard itself.  Features of the C++ Standard Library 
+are declared within the std namespace
+• Containers: vector, queue, stack, map, set, etc.
+• General: algorithm, functional, iterator, memory, etc.
+• Strings
+• Streams and Input/Output: iostream, fstream, sstream, etc.
+• Localization
+• Language support
+• Thread support library
+• Numerics library
+• C standard library: cmath, cctype, cstring, cstdio, cstdlib, etc.
+
+--- PAGE 4 ---
+Streams
+H
+E
+L
+L
+O Y
+source
+Input stream
+HELLO
+destination
+output stream
+Keyboard
+File
+String
+Console
+File
+String
+
+--- PAGE 5 ---
+#include <iostream>
+#include <string>
+using namespace std;
+int main()
+{
+string name;
+string tmp = "Enter a name:";
+cout << tmp << endl;
+cin >> name;
+cout << "The name you entered:" << name << endl;
+}
+output the variable tmp to console
+get the value of name from keyboard
+output the variable name to console
+
+--- PAGE 6 ---
+Using <cstdio> (stdio.h) Interface
+
+
+--- PAGE 7 ---
+Using printf from <cstdio> (stdio.h)
+#include <cstdio>
+#include <iostream>
+#include <iomanip>
+using namespace std;
+int main()
+{
+   char c = 'a';
+   int i = 1;
+   double d = 3.14159265358979323846;
+   // C style, acceptable in C++
+   printf("This is a character: %c\n", c);
+   printf("This is an integer: %d\n", i);
+   printf("This is a double: %.2f\n", d);
+   // C++ style
+   cout << "This is a character: " << c << endl;
+   cout << "This is an integer: " << i << endl;
+   cout << "This is a double: " << fixed 
+        << setprecision(2) << d << endl;
+   return 0;
+}
+This is a character: a
+This is an integer: 1
+This is a double: 3.14
+This is a character: a
+This is an integer: 1
+This is a double: 3.14
+
+--- PAGE 8 ---
+Using printf from <cstdio> (stdio.h)
+specifier Output Example
+d or i Signed decimal integer 392
+u Unsigned decimal integer 7235
+o Unsigned octal 610
+x Unsigned hexadecimal integer 7fa
+X Unsigned hexadecimal integer (uppercase) 7FA
+f Decimal floating point, lowercase 392.65
+F Decimal floating point, uppercase 392.65
+e Scientific notation (mantissa/exponent), lowercase 3.9265e+2
+E Scientific notation (mantissa/exponent), uppercase 3.9265E+2
+g Use the shortest representation:%e or %f 392.65
+G Use the shortest representation:%E or %F 392.65
+a Hexadecimal floating point, lowercase -0xc.90fep-2
+A Hexadecimal floating point, uppercase -0XC.90FEP-2
+c Character a
+s String of characters sample
+p Pointer address b8000000
+n
+Nothing printed.
+The corresponding argument must be a pointer to asigned int.
+The number of characters written so far is stored in the pointed location.
+% A % followed by another% character will write a single% to the stream. %
+
+--- PAGE 9 ---
+C++ Streams
+• Ever since the very first program in the text, which displayed the message 
+"hello, world" on the screen, the programs in this text have made use of an 
+important object called a stream, which C++ uses to manage the flow of 
+information to or from some data source.
+• In the earlier chapters, you have used the << and >> operators and have 
+already had occasion to use the three standard streams exported by the 
+<iostream> library: cin, cout, and cerr.
+• Later, to implement file-processing applications, we will learn the notion of 
+data files.
+• Finally, we explore the structure of the C++ stream classes as a 
+representative example of inheritance hierarchies in an object-oriented 
+language.
+
+--- PAGE 10 ---
+C++ Streams
+• A stream is an abstraction (object) that represents an input source or 
+output destination of characters of indefinite length , on which input and 
+ouput operations can be performed.
+• Streams are often associated to a physical source or destination of 
+characters, like a disk file (file streams), the keyboard (standard input stream 
+cin), or the console (standard output stream cout), so the characters gotten 
+from or written to our abstraction called stream are physically input from or 
+output to the corresponding physical device.
+• For example, file streams are C++ objects to manipulate and interact with 
+files.  Once a file stream is used to open a file, any input or output 
+operation performed on that stream is physically reflected in the file.
+
+--- PAGE 11 ---
+Standard Output Stream cout and the Insertion Operator <<
+• The standard technique to specify formatted output in C++ uses the 
+insertion operator, which is written as <<.  This operator takes an output 
+stream on the left and an expression of any type on its right.  The effect is to 
+write the value of the expression to the output stream using the current 
+format settings.
+• The insertion operator returns the output stream as its result.  The advantage 
+of this interpretation is that output operations can be chained together, as in 
+the following statement:
+• C++ allows you to control the output by including items in the output chain 
+called manipulators (<iomanip>), which affect the way how subsequent values 
+are formatted.  A list of the most common output manipulators appears on 
+the next slide. 
+cout << "The total is " << total << endl;
+<<(<<(<<(cout, "The total is "), total), endl);
+
+
+--- PAGE 12 ---
+Output Manipulators
+endl Moves cursor to the next line.
+setw(n) Sets the width of the next value to n characters.
+left Aligns the value at the left edge of the field.
+fixed Sets fixed-point output (no scientific notation).
+scientific Sets scientific-notation output.
+showpos/noshowpos Controls appearance of a plus sign.
+setprecision(digits) Sets how many digits should appear.
+setfill(ch) Sets the fill character used to pad values.
+right Aligns the value at the right edge of the field.
+showpoint/noshowpoint Controls whether a decimal point must appear.
+boolalpha/noboolalpha Controls whether bools appear as true/false.
+uppercase/nouppercase Controls whether uppercase is used in hex.
+
+--- PAGE 13 ---
+Formatting output 
+#include <iostream>
+#include <iomanip>
+using namespace std;
+const double PI = 314.159265358979323846;
+int main() {
+   cout << fixed << setprecision(20) << PI << endl;
+   cout << fixed << setprecision(6) << PI << endl;
+   cout << scientific << setprecision(15) << PI << endl;
+   cout << uppercase << scientific << setprecision(6) << PI << endl;
+   cout << fixed << setw(16) << setprecision(9) << PI << endl;
+   cout << fixed << setfill('0') << setw(10) << setprecision(4) << PI << endl;
+   cout << fixed << setfill('0') << setw(10) << setprecision(4) << left << PI << endl;
+   return 0;
+}
+314.15926535897932581065
+314.159265
+3.141592653589793e+02
+3.141593E+02
+   314.159265359
+00314.1593
+314.159300
+You might see 002 in the exponent in some compilers/systems.
+The closest floating -point number with the specified precision.
+
+--- PAGE 14 ---
+Precision Example
+const double PI = 3.14159265358979323846;
+const double SPEED_OF_LIGHT = 2.99792458E+8;
+const double FINE_STRUCTURE = 7.2573525E -3;
+int main() {
+   cout << uppercase << right;
+   cout << "Default format:" << endl << endl;
+   printPrecisionTable();
+   cout << endl << "Fixed format:" << fixed << endl << endl;
+   printPrecisionTable();
+   cout << endl << "Scientific format:" << scientific << endl << endl;
+   printPrecisionTable();
+   return 0;
+}
+void printPrecisionTable() {
+   cout << " prec |      pi       |  speed of light  | fine structure" << endl;
+   cout << "------+---------------+------------------+----------------" << endl;
+   for (int prec = 0; prec <= 6; prec += 2) {
+      cout << setw(4) << prec << "  |";
+      cout << " " << setw(13) << setprecision(prec) << PI << " |";
+      cout << " " << setw(16) << setprecision(prec) << SPEED_OF_LIGHT << " |";
+      cout << " " << setw(14) << setprecision(prec) << FINE_STRUCTURE << endl;
+   }
+}
+
+--- PAGE 15 ---
+Precision Example
+Default format is the more compact representation 
+between fixed and scientific, chosen by C++.  
+setprecision( digits) indicates the number of 
+significant digits for default format and specifies the 
+number of digits after the decimal point otherwise.
+
+--- PAGE 16 ---
+Standard Input Stream cin and the Extraction Operator >>
+• For input, C++ includes the >> operator , which is called the extraction 
+operator.  The >> operator is symmetrical to the << operator and reads 
+formatted data from the stream on the left into the variables that 
+appear on the right.
+• Up to now, you have used the >> operator to request input values from 
+the console (PowerOfTwo):
+• Similar to the << operator , you can use manipulators to affect the way 
+how subsequent values are formatted:
+int limit;
+cout << "Enter exponent limit: ";
+cin >> limit; 
+char ch;
+cout << "Enter a single character: ";
+cin >> noskipws >> ch;
+
+--- PAGE 17 ---
+Input Manipulators
+char a, b, c;
+cout << "Enter at least 3 character: ";
+cin >> noskipws >> a >> ws >> b >> skipws >> c;
+cout << a << b << c << endl;
+• Exercise: type in ' '' ''A'' ''B', and what is the output?
+Take effect only once。
+
+--- PAGE 18 ---
+Using <cstdio> (stdio.h) Interface
+Like the relationship between cout and << and 
+printf, you are encouraged to use cin and >> 
+in C++, but should know about scanf in C.
+
+--- PAGE 19 ---
+Data Files
+• A file is the generic name for any named collection of data maintained 
+on the various types of permanent storage media attached to a 
+computer .  In most cases, a file is stored on a hard disk, but it can also 
+be stored on removable medium, such as a CD or flash memory drive.
+• Files can contain information of many different types.  When you 
+compile a C++ program, for example, the compiler stores its output in 
+an object file containing the binary representation of the program.  The 
+most common type of file, however, is probably a text file, which 
+contains character data of the sort you find in a string.
+• Files can be both a source associated to an input stream and a 
+destination associated to an output stream.
+
+--- PAGE 20 ---
+Using T ext Files
+• When you want to read data from a text file as part of a C++ program, you 
+need to take the following steps:
+1. Construct a new ifstream (i.e., input file stream) object that is tied to the data in 
+the file by declaring a stream variable to refer to the file.
+2. Call the open method for the stream.  This phase of the process is called 
+opening the file.  For historical reasons, the argument to open is a C string 
+literal rather than a C++ string object.
+3. Call the methods provided by the ifstream class to read data from the file in 
+sequential order.  The text of the file can be read in several ways, including 
+character by character or line by line.
+4. Break the association between the reader and the file by calling the stream’s 
+close method, which is called closing the file.  This is important because before 
+you close the file, no one else can use the file.
+
+--- PAGE 21 ---
+Using T ext Files
+• Question: Why does it seem so complicated to process a file?
+Files live in the external storage, and are exposed to all programs.  You have 
+to open (associate a stream living in your program to) a file before you can 
+use it.  While you are accessing a file through a stream, other programs 
+might not be allowed to access the file to avoid conflicts.  Y ou have to close 
+(untie the stream to) a file after you use it so that it can be used by others.
+• Question: How to write data to a text file?
+
+--- PAGE 22 ---
+Using T ext Files
+
+
+--- PAGE 23 ---
+Using T ext Files
+a free function belonging to <string>
+
+--- PAGE 24 ---
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cctype>
+using namespace std;
+int main()
+{
+ifstream ifile;
+ofstream ofile;
+string instr;
+ifile.open("MyFile.txt"); // open the input filestream
+ofile.open("Output.txt", std::ios::out | std::ios::app);
+while (!ifile.eof())
+{
+getline(ifile, instr); // read a line from input file.
+cout << instr << endl;
+ofile << instr << endl; // write a line to output file
+}
+ifile.close();
+ofile.close();
+return 0;
+}
+Using Text Files
+
+--- PAGE 25 ---
+Reading Characters
+• You can read characters from an input stream by calling the get method, which 
+comes in two forms:
+– If you supply no arguments, get() reads and returns the next character value as an 
+int, which is EOF at the end of the file.
+– If you instead pass a character variable by reference, get(ch) reads the next 
+character into that variable.  This form of get returns a value that acts like false at 
+the end of the file.
+• The second is less conventional but typically more convenient.
+int ch;                               // int get();
+while ((ch = infile.get()) != EOF) {
+   . . . Perform the necessary operations using the character . . .
+}
+char ch;                  // istream& get(char& c);
+while (infile.get(ch)) {
+   . . . Perform the necessary operations using the character . . .
+}
+ch
+!infile.fail()
+Type casting a stream to 
+bool using a bool operator 
+of itself
+
+--- PAGE 26 ---
+The conversion function operator bool()
+struct INT
+{
+int i;
+INT(int k = 0) : i(k) {};
+INT &operator=(const INT &src);
+explicit operator bool() const { return i > 5; };
+friend INT operator++(INT &m); // pre-increment operator
+friend INT operator++(INT &m, int); // post-increment operator
+friend INT operator+(const INT m, const INT n);
+friend INT operator-(const INT m, const INT n);
+friend INT operator*(const INT m, const INT n);
+friend INT operator/(const INT m, const INT n);
+friend std::ostream &operator<<(std::ostream &os, INT k);
+};
+When i > 5, return true, 
+otherwise return false
+int main()
+{
+INT I = 10;
+INT J = 5;
+if (I) cout << "I is true" << endl;
+else cout << "I is false" << endl;
+if (J) cout << "J is true" << endl;
+else cout << "J is false" << endl;
+}
+I is true
+J is false
+Call the bool operator 
+of the data type INT to 
+convert(cast) I to bool
+
+--- PAGE 27 ---
+/*
+ * File: ShowFileContents.cpp
+ * --------------------------
+ * This program displays the contents of a file chosen by the user.
+ */
+#include <iostream>
+#include <fstream>
+#include <string>
+#include "filelib.h"
+using namespace std;
+int main() {
+   ifstream infile;
+   promptUserForFile(infile, "Input file: ");
+   int ch;
+   while ((ch = infile.get()) != EOF) {
+      cout.put(ch);
+   }
+   infile.close();
+   return 0;
+}
+Reading a File Character by Character
+comes from the Stanford C++ Library
+
+--- PAGE 28 ---
+/*
+ * File: ShowFileContents.cpp
+ * --------------------------
+ * This program displays the contents of a file chosen by the user.
+ */
+#include <iostream>
+#include <fstream>
+#include <string>
+#include "filelib.h"
+using namespace std;
+int main() {
+   ifstream infile;
+   promptUserForFile(infile, "Input file: ");
+   char ch;
+   while (infile.get(ch)) {
+      cout.put(ch);
+   }
+   infile.close();
+   return 0;
+}
+Reading a File Character by Character
+
+--- PAGE 29 ---
+Reading Lines from a File
+• You can also read lines from a text file by calling the free function (unlike a 
+method, a free function is not bound to a particular class) getline, which 
+takes an ifstream and a string as reference parameters.
+• The effect of getline is to store the next line of data from the file into the 
+string variable after discarding the end -of-line character .
+• If you try to read past the end of the data, getline sets the fail indicator for 
+the stream, which is then interpreted as false.
+• The following code fragment uses the getline method to…?
+determine the length of the longest line in the stream infile.
+...
+int max = 0;
+string line;
+while (getline(infile, line)) {
+   if (line.length() > max) max = line.length();
+}
+
+--- PAGE 30 ---
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+int main()
+{
+ifstream ifile;
+ofstream ofile;
+string line;
+ifile.open("MyFile.txt"); // open the input filestream
+// open output file stream
+ofile.open("Output.txt", std::ios::out | std::ios::app);
+while (getline(ifile, line)) // read a line from input file
+{ 
+cout << line << endl;
+ofile << line << endl; // write a line to output file
+}
+ifile.close();
+ofile.close();
+return 0;
+}
+Reading a File Line by Line
+
+--- PAGE 31 ---
+getline
+• The free function std::getline is defined in <string>, and not only works 
+on input file stream but other input streams :
+• There are actually another overloaded version of getline in C++.  It is 
+the member method of the istream class, i.e., std::istream::getline
+• Question: Why is there istream in the parameter list of the first version 
+of getline but not in the second version?
+istream& getline(istream& is, string& str, char delim);
+istream& getline(istream& is, string& str);
+istream& getline(char* s, streamsize n);
+istream& getline(char* s, streamsize n, char delim);
+
+--- PAGE 32 ---
+T ext Files vs. Strings
+• Although text files and strings both contain character data, it is important 
+to keep in mind the following important differences between text files and 
+strings:
+‒ The information stored in a file is permanent.  Information stored in a 
+file exists in the external storage until the file is deleted.  Strings only live 
+in a certain program while files are exposed to all programs.  The value 
+of a string variable persists only as long as the variable does.  Local 
+variables disappear when the method returns, and instance variables 
+disappear when the object goes away, which typically does not occur 
+until the program exits.  
+‒ Data in files are usually accessed sequentially.  When you read data 
+from a file, you usually start at the beginning and read the characters in 
+order , either individually or in groups that are most commonly individual 
+lines.  Once you have read one set of characters, you then move on to 
+the next set of characters until you reach the end of the file.
+
+--- PAGE 33 ---
+RAM vs. Storage
+
+
+--- PAGE 34 ---
+String Streams
+• Given that files and strings are both sequences of characters, C++ allows you 
+to treat them symmetrically.
+• C++ provides that capability through the <sstream> library, which exports 
+several classes that allow you to associate a stream with a string value in 
+much the same way that the <fstream> library allows you to associate a 
+stream with a file.
+• The istringstream class is the counterpart of ifstream and makes it possible to 
+use stream operators to read data from a string.
+• For output, the ostringstream class works very much like ofstream except that 
+the output is directed to a string rather than a file.
+• A string is a collection of characters, a stream is an object to manipulate a 
+flow of data (e.g., characters), and a string stream is a special stream object 
+that lets you use a string as the source and destination of the flow of data.
+
+--- PAGE 35 ---
+String Streams
+
+
+--- PAGE 36 ---
+String Streams
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+int main()
+{
+    int i;
+    cin >> i;
+    cout << "My favorite number is: " << i << endl;
+    string s = "My favorite number is: " + to_string(i);
+    cout << s << endl;
+    stringstream ss;
+    ss << "My favorite number is: " << i;
+    s = ss.str();
+    cout << s << endl;
+}
+Only available since C++ 11.
+
+--- PAGE 37 ---
+Input Streams Output Stream 
+A B C D E F G H I J … A B C D E F G H I J …
+
+--- PAGE 38 ---
+int main()
+{
+ifstream ifile; // file stream objects
+ofstream ofile;
+string ifstr; // string stream objects
+string ofstr;
+string line;
+string name;
+char sex;
+long ID;
+cout << "Enter the input and output file names:"  << endl; // system output
+cin >> skipws >> ifstr >> ofstr; // system input
+ifile.open(ifstr.c_str()); // open the input filestream
+ofile.open(ofstr.c_str(), std::ios::out | std::ios::app); // open output file stream
+while (getline(ifile, line)) // read a line from input file
+{
+istringstream iss(line); // create an input string stream using line
+ostringstream oss; // create an output string stream using line
+iss >> skipws >> name >> sex >> ID; // read a string, a char and a long variable from stringstream
+oss << name << "\t" << sex << "\t" << ID << endl; // write this variable to a output stringstream
+ofile << oss.str(); // write the string to an output file
+cout << oss.str(); // we can also output the same thing to system output
+} // Complete the task of reading all lines in the input file 。
+ifile.close(); // close the file for other user 。
+ofile.close();
+return 0;
+}
+Standard Input/Output Streams 
+String Streams
+File Streams
+
+--- PAGE 39 ---
+End

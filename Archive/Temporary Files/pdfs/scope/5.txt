@@ -1,0 +1,571 @@
+
+--- PAGE 1 ---
+CSC3002
+C/C++ Programming 
+String
+Prof. Dr. RuizhiChen，SDS/SAI
+Office: TxC 717
+chenruizhi@cuhk.edu.cn
+1
+
+--- PAGE 2 ---
+Strings
+4  Using strings as abstract values in C++
+4  Using strings as abstract values in C++
+5  String operations
+5  String operations
+2  Characters and the <cctype> library
+2  Characters and the <cctype> library
+6  Modifying the contents of a string
+6  Modifying the contents of a string
+3  The C-style strings and the <cstring> library
+3  The C-style strings and the <cstring> library
+7  Writing string applications
+7  Writing string applications
+1  Using strings in C and C++
+1  Using strings in C and C++
+
+--- PAGE 3 ---
+Introduction to the C++ Standard Libraries
+• A collection of classes and functions, which are written in the core language 
+and part of the C++ ISO Standard itself.  Features of the C++ Standard 
+Library are declared within the std namespace
+• Containers: vector, queue, stack, map, set, etc.
+• General: algorithm, functional, iterator, memory, etc.
+• Strings
+• Streams and Input/Output: iostream, fstream, sstream, etc.
+• Localization
+• Language support
+• Thread support library
+• Numerics library
+• C standard library: cmath, cctype, cstring, cstdio, cstdlib, etc.
+
+--- PAGE 4 ---
+Using strings in C and C++
+• T ext data nowadays are as important as numeric data.  Almost any program 
+that you write in any modern language is likely to use string data at some 
+point, even if it is only to display instructions to the user or to label results.
+• T ext data processing is essential for Large Language Model 
+• Conceptually, a string is simply a sequence of characters, which is precisely 
+how strings are implemented in C.
+• As a newly designed language, especially one to extend C with the object -
+oriented programming paradigm, C++ supports a higher -level view of 
+strings, as objects.
+• The different strategies used by C and C++ on strings show the differences 
+between different programming paradigms.
+
+--- PAGE 5 ---
+Characters
+• Both C and C++ use ASCII (American Standard Code for Information 
+Interchange) as their encoding for character representation.  The data type 
+char therefore fits in a single eight-bit byte.
+• With only 256 possible characters, ASCII is inadequate to represent the many 
+alphabets in use throughout the world.  In most modern language, ASCII has 
+been superseded by Unicode, which permits a much larger number of 
+characters.
+• Even though the weaknesses in the ASCII encoding were clear at the time 
+C++ was designed, changing the definition of char was impossible given the 
+decision to keep C as a subset.
+• The C++ libraries define the type wchar_t to represent “wide characters” that 
+allow for a larger range.  The details of the wchar_t type are beyond the scope 
+of this text.  We will stick with the traditional char type.
+
+--- PAGE 6 ---
+
+
+--- PAGE 7 ---
+
+
+--- PAGE 8 ---
+Single Characters
+• T o use variables of the single character type:
+• Exercise: What is the equivalent statement of the following:
+• Some characters are special control characters:
+• T o break a line, Mac uses \r, Unix uses \n, and Windows uses \r\n.
+char ch;
+char ch = 'a';
+char ch = 97;
+char ch = 32;
+char ch = ' ';
+char ch = 9; // '\t' (T ab)
+char ch = 10; // '\n' (New line)
+char ch = 13; // '\r' (Return)
+
+--- PAGE 9 ---
+The <cctype> (ctype.h) Interface
+bool isdigit(char ch)
+Determines if the specified character is a digit.
+bool isalpha(char ch)
+Determines if the specified character is a letter.
+bool isalnum(char ch)
+Determines if the specified character is a letter or a digit.
+bool islower(char ch)
+Determines if the specified character is a lowercase letter.
+bool isupper(char ch)
+Determines if the specified character is an uppercase letter.
+bool isspace(char ch)
+Determines if the specified character is whitespace (spaces and tabs).
+char tolower(char ch)
+Converts ch to its lowercase equivalent, if any.  If not, ch is returned unchanged.
+char toupper(char ch)
+Converts ch to its uppercase equivalent, if any.  If not, ch is returned unchanged.
+
+--- PAGE 10 ---
+• In C, we can represent strings, i.e., sequences of characters, as plain 
+arrays of elements of a character type:
+• If you put double quotation marks around a sequence of characters, you 
+get what is called a C string literal (const char[] type).  The characters are 
+stored in an array of bytes, terminated by a null byte whose ASCII value 
+is 0.  E.g., the characters in the C string " hello, world" are arranged like 
+this:
+• Character positions in a C string are identified by an index that begins at 
+0 and extends up to one less than the length of the string.
+The Legacy of C-Style Strings
+h
+0
+e
+1
+l
+2
+l
+3
+o
+4
+,
+5 6
+w
+7
+o
+8
+r
+9
+l
+10
+d
+11
+\0
+12
+char cstr[10];
+char cstr[] = "hello";
+char cstr[] = { 'h', 'e', 'l', 'l', 'o', '\0' };
+
+--- PAGE 11 ---
+The Legacy of C-Style Strings
+• Question: is "a" the same as 'a'?
+"a" is a string literal containing an 'a' and a null terminator 
+'\0' , and therefore is a 2-char array, ‘a’ is just a char.
+
+--- PAGE 12 ---
+Calling C String Functions
+• The <cstring> (string.h) interface offers a lot of functions you can use to 
+operate C strings.  For example, if you want to determine the length of a C 
+string cstr, you can use the following function strlen:
+• If you want to assign a value to a C string cstr, you can use the following 
+function strcpy:
+• However, you cannot directly assign a value to a C string except for 
+initialization:
+char cstr[] = "hello";
+int len = strlen(cstr);
+strcpy(cstr, "world");
+cstr = "world";
+cstr[] = "world";
+Does cstr have enough 
+space to hold "world"?
+char cstr[] = "world";
+
+
+--- PAGE 13 ---
+The <cstring> Interface
+
+
+--- PAGE 14 ---
+The <cstring> Example
+#include <iostream>
+#include <cstring>
+int main() {
+    char cstr[80];
+    strcpy(cstr, "these ");
+    strcat(cstr, "strings ");
+    strcat(cstr, "are ");
+    strcat(cstr, "concatenated.");
+    std::cout << cstr << " length = " << strlen(cstr)<<std::endl;
+    return 0;
+}
+>these strings are concatenated. length = 31
+>
+
+--- PAGE 15 ---
+The <cstring> Exercise
+#include <iostream>
+#include <cstring>
+using std::cout; using std::endl;
+int main() {
+    char cstr[] = "hello";
+    cout << cstr << endl
+         << sizeof cstr << endl
+         << strlen(cstr) << endl;
+    strcpy(cstr, "hello world");
+    cout << cstr << endl
+         << sizeof cstr << endl
+         << strlen(cstr) << endl;
+    return 0;
+}
+Exercise: what is the output?
+sizeof x returns 
+the actual memory 
+size of variable x.
+
+
+--- PAGE 16 ---
+Using Strings as Abstract Values
+• Ever since the very first program in the text, which displayed the message 
+"hello, world" on the screen, you have been using strings to communicate 
+with the user.
+• Up to now, you have not had any idea how C++ represents strings inside 
+the computer or how you might manipulate the characters that make up 
+a string.
+• For most applications, the abstract view of strings you have held up to 
+now is precisely the right one.  On the inside, strings are surprisingly 
+complicated objects whose details are better left hidden.
+
+--- PAGE 17 ---
+Using Strings as Abstract Values
+• As a newly designed language, especially one to extend C with the object -
+oriented programming paradigm, C++ supports a higher -level view of strings, 
+as objects.
+• A C++ library <string> provides a convenient abstraction for working with 
+strings of characters by making string a class whose methods hide the 
+underlying complexity.
+• A class is the term for data types that support the object -oriented 
+programming paradigm.  The operations that apply to instances of a class are 
+called methods.
+
+--- PAGE 18 ---
+Exercise
+What are the meaning of the following statements?
+#include <cstring>
+// the C string library, used in C++
+#include <string.h>
+// the C string library, used in C, acceptable in C++
+#include <string>
+// the C++ string library
+#include "cstring.h"
+// user-defined cstring.h
+#include "string.h"
+user-defined string.h
+#include <cstring.h>
+// error even if you defined cstring.h by yourself
+
+
+--- PAGE 19 ---
+Classes and Objects
+• In C, structures define the representation of a compound value, while 
+functions define operations on these data.  In C++, these two ideas are 
+integrated.
+• Object-oriented languages are characterized by representing most data 
+structures as objects that encapsulate both the representation and the 
+behavior of the objects (i.e., operations on the data) in a single entity.
+• C++ object model is based on the idea of a class, which is a template 
+describing all objects of a particular type.  The class definition specifies the 
+representation of the object by naming its fields or instance variables (e.g., 
+compound property/attribute values) and the behavior of the object by 
+providing a set of methods.
+• New objects are created as instances of a particular class, and the creation 
+of new instances is called instantiation.
+
+--- PAGE 20 ---
+Representing Points Using a Class
+• Although structure types are part of the history of C++ and the languages that 
+came before it, they have largely been supplanted by classes, which offer 
+greater power and flexibility.  The Point structure from the preceding section is 
+identical to the following class definition:
+• This definition allows you to declare a Point object like this:
+• As the x and y fields are included as part of the public section, which is visible to 
+clients, you can select the public fields using the dot operator (.), as in pt.x and 
+pt.y.
+class Point {
+public:
+   int x;
+   int y;
+   double length();
+   Point operator+(Point& pt);
+};
+Point pt;
+fields
+Methods
+
+--- PAGE 21 ---
+The Hello Name Program
+cin
+ 
+>> name;
+
+--- PAGE 22 ---
+Operators in the string Class
+str[i]
+Returns the ith character of str.  Assigning to str[i] changes that character.
+s1 + s2
+Returns a new string consisting of s1 concatenated with s2.  
+s1 = s2;
+Copies the character string s2 into s1. 
+s1 += s2;
+Appends s2 to the end of s1. 
+s1 == s2  (and similarly for <, <=, >, >=, and !=)
+Compares to strings lexicographically.
+str.c_str()
+Returns a C-style character array containing the same characters as str.
+• Unlike most languages, C++ allows classes to redefine the meanings of 
+the standard operators.  As a result, several string operations, such as + 
+for concatenation, are implemented as operators (overloading).
+• T o convert the C++ string objects into C string literals, simply apply the 
+c_str method to the C++ string.
+// this is a public member function
+
+--- PAGE 23 ---
+char &str::operator[](int idx)
+{
+if (idx < maxlen && data[idx] != '\0’) return data[idx];
+else throw std::out_of_range("index out of range");
+}
+str s = “Test”;
+s[0] = ‘W’; // s = “West”;
+char c = s[0]; // c = ’W’
+The [ ] Operator of a string object
+
+--- PAGE 24 ---
+Concatenation of Strings
+• As those of you who have studied Python already know, the + operator is a 
+convenient shorthand for concatenation for the string objects, which consists 
+of combining two strings end to end with no intervening characters.
+• In Python, the + operator is often used to combine items as part of a print 
+call, as in 
+• In C++, you achieve the same result using the << operator:
+• Although you might imagine otherwise, you can’t always use the + operator 
+in this statement, depending on whether name is a C string (array) or a C++ 
+string object.
+print("Hello, " + name + "!");
+cout << "Hello, " << name << "!" << endl;
+char name[] = “World”;
+cout << "Hello, " + name + "!" << endl;
+string name = “World”;
+cout << "Hello, " + name + "!" << endl;
+OK
+
+--- PAGE 25 ---
+String literal vs. C++ string object
+• C++ automatically converts a C string literal to a C++ string object 
+whenever the compiler can determine that what you want is a C++ string 
+object:
+• By contrast, C++ does not allow you to write the declaration:
+• The + operator cannot be applied to C string literals.   T o get around this 
+problem, you can explicitly convert a string literal to a string object by 
+calling string on the literal:
+string str = "hello" + ", " + "world";
+string str = string("hello") + ", " + "world";
+string str = "hello, world";
+string str = "hello" + string(", ") + "world";
+string str = "hello" + ", " + string("world");
+
+
+--- PAGE 26 ---
+String literal vs. Char array vs. String object
+Exercise: what is the output?
+#include <iostream>
+#include <string>
+int main() {
+    char name1[] = "Ray";
+    std::string name2 = "Ray";
+    std::cout << "Hello, " << name1 << std::endl;
+    std::cout << "Hello, " << name2 << std::endl;
+    std::cout << "Hello, " + name1 << std::endl;
+    std::cout << "Hello, " + name2 << std::endl;
+    return 0;
+}
+
+
+--- PAGE 27 ---
+Common Methods in the string Class
+str.length()
+Returns the number of characters in the string str.
+str.at(index)
+Returns the character at position index; most clients use str[index] instead.  
+str.substr(pos, len)
+Returns the substring of str starting at pos and continuing for len characters.
+str.find(ch, pos)
+Returns the first index ≥ pos containing ch, or string::npos if not found.
+str.find(text, pos)
+Similar to the previous method, but with a string instead of a character.
+
+--- PAGE 28 ---
+Calling String Methods
+• Calling a method of an object:
+• For example, if you want to determine the length of a string str (a string object), 
+you can call the method as follows:
+• You might also be tempted to use the strlen function we have used before 
+with the C string literal:
+object.method(arguments);
+int len = strlen(str);
+int len = str.length();
+
+--- PAGE 29 ---
+Calling String Methods
+Exercise: how do you determine the length of a string str?
+• The object-oriented version:
+• If you must use the strlen function from C:
+int len = strlen(str.c_str());
+int len = str.length();
+
+--- PAGE 30 ---
+The <string> Library Example
+#include <iostream>
+#include <cstring>
+int main() {
+    char str[80];
+    strcpy(str, "these ");
+    strcat(str, "strings ");
+    strcat(str, "are ");
+    strcat(str, "concatenated.");
+    std::cout << str << " length = " << strlen(str);
+    return 0;
+}
+#include <iostream>
+#include <string>
+int main() {
+    std::string str;
+    str = "these ";
+    str = str + "strings " + "are " + "concatenated.";
+    std::cout << str << " length = " << str.length();
+    return 0;
+}
+C string literal
+C++ string
+
+--- PAGE 31 ---
+Strings as an Abstract Data Type
+• Because C++ includes everything in its predecessor language, C strings are a 
+part of C++, and you will occasionally have to recognize that this style of 
+string exists.
+• For almost every program you write, it will be far easier to use the C++’s string 
+class, which implements strings as an abstract data type, which is defined by 
+its behavior rather than its representation.  All programs that use the string 
+class must include the <string> library interface.
+
+--- PAGE 32 ---
+Selecting characters in strings 
+• The <string> library offers two different mechanisms for selecting 
+individual characters from a string:
+• The only difference is that at checks to make sure the index is in range, 
+0~str .length()-1.
+• Both methods can be used to assign a new value to the character:
+• The former has better readability while the latter has range -checking.
+str[index]
+str.at(index)
+str[index] = 'H';
+str.at(index) = 'H';
+
+--- PAGE 33 ---
+Iterating through the characters in strings 
+• When you work with strings, one of the most important patterns involves 
+iterating through the characters in a string, which requires the following code:
+• The following function reverses the argument string so that, calling 
+reverse("desserts") returns "stressed":
+for (int i = 0; i < str.length(); i++) {
+   . . . body of loop that manipulates str[i] . . .
+}
+for (int i = str.length() - 1; i >= 0; i--)
+string reverse(string str) {
+   string rev = "";
+   for (int i = str.length() - 1; i >= 0; i--) {
+      rev += str[i];
+   }
+   return rev;
+}
+
+--- PAGE 34 ---
+str.erase(pos, count)
+Deletes count characters from str starting at position pos.
+Modifying the Contents of a String
+str.insert(pos, text)
+Inserts the characters from text into str starting at position pos.
+str.replace(pos, count, text)
+Replaces count characters in str with text starting at position pos.
+• In many languages, including Python, Java, C#, strings are immutable, which 
+means that they never change once they are allocated.
+• C++, by contrast, allows clients to change the contents of a string, both by 
+assigning new values to selected characters and by calling string methods 
+such as the following:
+Destructively changes str
+Destructively changes str
+Destructively changes str
+
+--- PAGE 35 ---
+Modifying the Contents of a String
+• As a tool for writing programs that are easier to debug and maintain, 
+immutable strings have many advantages over their modifiable counterparts 
+in C++.  Fortunately, it is easy to secure these advantages in C++ by 
+avoiding the use of destructive operations like erase, insert, replace, and 
+assignment to individual characters.
+• Example: Case conversion without changing the original (safe, but is it 
+efficient?)
+string toUpperCase(string str) {
+   string result = "";
+   for (int i = 0; i < str.length(); i++) {
+      result += toupper(str[i]);
+   }
+   return result;
+}
+
+--- PAGE 36 ---
+• Example: Case conversion both safely and efficiently (why?)
+• Exercise: Case conversion in place (most efficient but not safe, 
+why?)
+• Question: can we implement reverse the same way?
+Avoiding the use of destructive operations
+string toUpperCase(string str) {
+   for (int i = 0; i < str.length(); i++) {
+      str[i] = toupper(str[i]);
+   }
+   return str;
+}
+void toUpperCaseInPlace(string & str) {
+   for (int i = 0; i < str.length(); i++) {
+      str[i] = toupper(str[i]);
+   }
+}
+
+--- PAGE 37 ---
+Exercise: Recognizing Palindromes
+• A palindrome is a word that reads identically backward and forward, such 
+as “level” or “noon”.
+• Write a C++ program isPalindrome that checks whether a string is a 
+palindrome.
+• Efficiency vs. Readability
+bool isPalindrome(string str) {
+   int n = str.length();
+for (int i = 0; i < n / 2; i++) {
+      if (str[i] != str[n - i - 1]) return false;
+   }
+   return true;
+}
+bool isPalindrome(string str) {
+   return str == reverse(str);
+}
+
+--- PAGE 38 ---
+Exercise: Writing String Applications
+• An acronym is a word formed by taking the first letter of each word in a 
+sequence, as in
+• Write a C++ program that generates acronyms, as illustrated by the following 
+sample run:
+"self-contained underwater breathing apparatus" "scuba"
+Acronym
+Program to generate acronyms
+Enter string: not in my back yard
+The acronym is "nimby"
+Enter string: Federal Emergency Management Agency
+The acronym is "FEMA"
+Enter string:
+
+
+--- PAGE 39 ---
+The End

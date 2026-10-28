@@ -1,0 +1,333 @@
+
+--- PAGE 1 ---
+CSC3002
+C/C++ Programming
+Templateand Iterator
+Prof. Dr. RuizhiChen，SDS
+Office: TxC 717
+E-mail: chenruizhi@cuhk.edu.cn
+1
+
+--- PAGE 2 ---
+1  Templates
+1 Templates
+2  Implementing Iterator
+2 Implementing Iterator
+
+--- PAGE 3 ---
+Overloading
+• In programming languages, polymorphism is the provision of a single interface to 
+entities of different types or the use of a single symbol to represent multiple 
+different types.
+• Function/operator overloading (a form of polymorphism) allows you to define 
+several functions with the same name as long as those functions can be 
+distinguished by their signatures.
+• Given a particular function call, the compiler can look at the number and types of 
+the arguments (i.e., signature) and choose the version of the function that matches 
+that signature.
+• Overloaded functions can have quite different behaviors with different signatures; 
+or simply different parameter types. 
+
+--- PAGE 4 ---
+Exercise: Overloading
+#include <iostream>
+using namespace std;
+int operate(int a, int b)
+{
+return a/b;
+}
+double operate(double a, double b)
+{
+return a/b;
+}
+int main ()
+{
+cout<<operate(1, 2)<<endl;
+cout<<operate(1.0, 2.0)<<endl;
+return 0;
+}
+• What is the output?
+For this type of overloading, 
+C++ can help you generate 
+the overloading automatically.
+
+--- PAGE 5 ---
+Templates
+• One of the most powerful features in C++ is the template facility, which makes it 
+possible to define functions and classes that work for a variety of types, e.g., to 
+automate the overloading process in situations where the code is identical except 
+for the types involved.
+• The most common form of a template specification is
+where placeholder is an identifier that is used to stand for a specific type when the 
+definition following the template specification is compiled. The keyword 
+typename can also be class.  They are interchangeable in this context.
+• For more than one type parameter, simply specify more template parameters 
+between the angle brackets.
+template <typename placeholder>
+template <typename placeholder1, typename placeholder2>
+
+--- PAGE 6 ---
+Templates in Functions
+• Templates can be used before a function definition to create a generic collection of 
+functions that can be applied to values of various types.
+• The following code, for example, creates a template for the Max function, which 
+returns the larger of its two arguments: 
+• The compiler will generate the code for many different versions of Max, one for each 
+type that the client uses.
+• Note that a template is not a class or a function. It is a “pattern” that the compiler 
+uses to generate a family of classes or functions. 
+template <typename ValueType>
+ValueType Max(ValueType v1, ValueType v2) {
+return (v1 > v2) ? v1 : v2;
+}
+int Max(int v1, int v2) { return (v1 > v2) ? v1 : v2; }
+double Max(double v1, double v2) { return (v1 > v2) ? v1 : v2; }
+ValueType = int 
+ValueType = double
+
+--- PAGE 7 ---
+Templates in Functions
+• The function max can be used only with types that implement the > operator.  If 
+you call Max on some type that doesn’t, the compiler will signal an error.
+Max('A', 'Z');
+Max(Point(10,10), Point(10,100));
+#include <string>
+Max(std::string("cat"), std::string("dog"));
+int main()
+{
+string str1("abcdE"), str2("ABCDE");
+Point pt1(10, 10), pt2(1, 100);
+cout << Max(1.0, 1.1) << endl; // 1.1
+cout << Max('A', 'B') << endl; //'B'
+cout << Max(str1, str2) << endl; // str1
+Point pt = Max(pt1, pt2); // pt2(1,100)
+cout << "pt(" << pt.x << ", " << pt.y << ")" << endl;
+return 0;
+}
+bool operator>(const Point &pt1, const Point &pt2);
+bool operator>(const string &str1, const string &str2);
+
+--- PAGE 8 ---
+Exercise: Multiple Types
+• The following code creates a template for the max function, which returns the 
+larger of its two arguments:
+• What is the result of the following function call and why?
+template <typename ValueType1, typename ValueType2>
+ValueType1 Max(ValueType1 v1, ValueType2 v2) {
+return (v1 > v2) ? v1 : v2;
+}
+Max(1, 1.1);Max(1, 1.1) = 1;
+
+--- PAGE 9 ---
+Example: Rewrite sort as a Template
+• Templates can be used before a function definition to create a generic collection of 
+functions that can be applied to values of various types.
+• Rewrite the following code so that it sorts any type that implements the < operator:
+void sort(int array[], int n) {
+for (int i = 0; i < n; i++) {
+int minIndex = i;
+for (int j = i + 1; j < n; j++) {
+if (array[j] < array[minIndex]) minIndex = j;
+}
+swap(array[i], array[minIndex]);
+}
+}
+void swap(int & x, int & y) {
+int tmp = x;
+x = y;
+y = tmp;
+}
+
+--- PAGE 10 ---
+Templates in Functions
+• The following code, for example, creates a template for invoking selection sort on 
+arrays of any element type: 
+template <typename ValueType>
+void sort(ValueType *array, int n)
+{
+for (int i = 0; i < n; i++)
+{
+int minIndex = i;
+for (int j = i + 1; j < n; j++)
+{
+if (array[j] < array[minIndex])
+minIndex = j;
+}
+swap(array[i], array[minIndex]);
+}
+}
+template <typename ValueType>
+void swap(ValueType &x, ValueType &y)
+{
+ValueType tmp = x;
+x = y;
+y = tmp;
+}
+
+--- PAGE 11 ---
+Implementing the Template Class
+• The first step in writing the template version of the Stack class is to add the 
+template keyword to the interface just before the class definition:
+• Once you have made this change, each instance of the specific type (formerly 
+char in the CharStack class) must be replaced by the ValueType placeholder for 
+the generic type, as in
+or
+template <typename ValueType>
+class Stack {
+. . . body of the class . . .
+};
+ValueType *array;
+void push(ValueType value);
+
+--- PAGE 12 ---
+Implementing the Template Class
+• The final change necessary to implement the template class is to add template
+declarations to every method body, as in the following updated version of the 
+constructor:
+• Because of the restrictions that C++ imposes on template types, it is convenient that 
+the implementations of the methods are also included in the header file, even 
+though the details are not of interest to most clients.
+template <typename ValueType>
+Stack<ValueType>::Stack() {
+capacity = INITIAL_CAPACITY;
+array = new ValueType[capacity];
+count = 0;
+}
+To instantiate a template class, 
+you specify arguments for the 
+template class enclosed by 
+angle brackets after the class 
+name wherever the class is used.
+
+--- PAGE 13 ---
+Templates in Class Definitions
+• Templates are more commonly used to define generic classes.  When 
+they are used in this way, the template keyword must appear before 
+the class definition and before each of the implementations of the 
+member functions.
+• The most inconvenient aspect of using templates to create generic 
+classes is that the compiler cannot process them correctly unless it has 
+access to both the interface and the implementation at the same time.  
+The effect of this restriction is that the .h files for template classes must 
+contain both the prototypes and the corresponding implementation 
+codes.
+
+--- PAGE 14 ---
+Vector.h
+
+--- PAGE 15 ---
+Introduction to the C++ Libraries
+• A collection of classes and functions, which are written in the core language 
+and part of the C++ ISO Standard itself.  Features of the C++ Standard Library 
+are declared within the std namespace
+• Containers: vector , queue, stack, map, set, etc.
+• General: algorithm, functional, iterator, memory, etc.
+• Strings
+• Streams and Input/Output: iostream, fstream, sstream, etc.
+• Localization
+• Language support
+• Thread support library
+• Numerics library
+• C standard library: cmath, cctype, cstring, cstdio, cstdlib, etc.
+
+--- PAGE 16 ---
+Iterating over a collection
+• One of the common operations that clients need to perform when using a 
+collection is to iterate through the elements.
+• While it is easy to implement iteration for vectors and grids using for loops, it is 
+less clear how you would do the same for other collection types. The modern 
+approach to solving this problem is to use a general tool called an iterator that 
+delivers the elements of the collection, one at a time.
+• C++11 uses a range-based for statement to simplify iterators:
+• Range-based for (provided since C++ 11) is a way to access iterators (provided by 
+the implementors of the collections).
+for (string key : map) { . . . code to process that key . . . }
+for (auto key : map) { . . . code to process that key . . . }
+
+--- PAGE 17 ---
+Using Iterators in C++
+• When you work with strings, one of the most important patterns involves iterating 
+through the characters in a string, which requires the following code (index-based 
+loop):
+• For collection classes, the range-based for loop looks like:
+• The C++ compiler translates the range-based for loop using iterators, which is what 
+you would do before C++11:
+for (int i = 0; i < str.length(); i++) {
+. . . Body of loop that manipulates str[i] . . .
+}
+for (auto x : stk) {
+. . . Body of loop involving x . . .
+}
+for (Stack::iterator it = stk.begin(); it != stk.end(); it++) {
+. . . Body of loop involving *it . . .
+}
+
+--- PAGE 18 ---
+Using Iterators in C++
+• Every collection class in the STL exports an iterator type (a nested type) along 
+with two standard methods that produce iterators.  The begin method returns 
+an iterator positioned at the beginning of the collection.  The end method returns 
+an iterator positioned just past the final element.
+• Iterators in C++ use a syntax derived from pointers.  Given an iterator, one reads 
+the corresponding value by dereferencing the iterator variable and increments it 
+using the ++ operator.  The pattern for using an iterator to loop over a collection 
+c is:
+for (ctype::iterator it = c.begin(); it != c.end(); it++) {
+. . . Body of loop involving *it . . .
+}
+
+--- PAGE 19 ---
+Using Iterators in C++
+The iterator class is a nested class of the container class allow to:
+⚫ access to the private member of the enclosing class (the container). 
+⚫ prevent collisions and allow each container to have its own iterator.
+
+--- PAGE 20 ---
+Example: The Vector Iterator
+• Some class may support only the InputIterator level of services (e.g. ++. --
+operators), while the iterator for the Vector class is a RandomAccessIterator
+(e.g += operator).
+• Using iterators in such unusual ways often ends up making programs difficult to 
+maintain, much like code that tries to be too clever with its pointer manipulation.  
+The best way to specify iteration is to use the (range-based) for loop whenever you 
+can, because doing so hides the iterators altogether.
+Vector<int>::iterator it = v.end();
+while (it != v.begin()) {
+cout << *--it << endl;
+}
+for (Vector<int>::iterator it = v.begin(); it < v.end(); it += 2) {
+cout << *it << endl;
+}
+
+--- PAGE 21 ---
+Implementation of an iterator
+• Iterators are considerably easier to implement for Vector (and, e.g., Grid and 
+HashMap) than they are for most of the other collection classes.
+• Implementing iterator for the Vector class presents a relatively straightforward 
+approach, because the underlying structure of the vector is defined in terms of a 
+simple dynamic array, and the only state information the iterator needs to maintain 
+is the current index value, along with a pointer back to the Vector object itself.
+• Iterators for tree-structured classes like Binary Search Tree turn out to be 
+enormously tricky, mostly because the implementation has to translate the 
+recursive structure of the data into an iterative form.
+• As a general rule, it is wise to leave the implementation of iterators to experts.
+
+--- PAGE 22 ---
+Implementation of the forward iterator 
+backward iterator
+void print(const Vector<int>& v, bool bForward = true)
+{
+if(bForward)
+{
+for (auto it = v.begin(); it!=v.end(); it++) cout <<" "<<*it;
+} 
+else 
+{
+for (auto it = v.rbegin(); it!=v.rend(); it++) cout <<" "<<*it;
+}
+cout <<endl;
+}
+// Traversing the elements using Forward iterator
+0 1 2 3 4 6 6 7 8 9
+// Traversing the elements using Backward iterator
+9 8 7 6 5 4 3 2 1 0

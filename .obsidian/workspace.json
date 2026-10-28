@@ -8,20 +8,47 @@
         "type": "tabs",
         "children": [
           {
-            "id": "5a85fe5cbd55658a",
+            "id": "b73db3362703a509",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Lecture notes/2- Functions and Libraries/CSC3002_Functions_and_Libraries_Part_1_Summary.md",
+                "file": "Notes/08 - Designing Classes/CSC3002_Designing_Classes_Summary.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CSC3002_Functions_and_Libraries_Part_1_Summary"
+              "title": "CSC3002_Designing_Classes_Summary"
+            }
+          },
+          {
+            "id": "6de774d3fa2b767d",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "output/pdf/2026-10-26_Tutorial_Review.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "2026-10-26_Tutorial_Review"
+            }
+          },
+          {
+            "id": "a6621551ac119842",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Exam Prep/Midterm/CSC3002_Lectures_1-9_Revision_Guide.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "CSC3002_Lectures_1-9_Revision_Guide"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -83,7 +110,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "right": {
     "id": "961c59daddde3dc1",
@@ -188,21 +215,53 @@
       "bases:Create new base": false
     }
   },
-  "active": "5a85fe5cbd55658a",
+  "active": "6de774d3fa2b767d",
   "lastOpenFiles": [
-    "README.md",
-    "Lecture notes/2- Functions and Libraries/pass-by-ref",
-    "Lecture notes/2- Functions and Libraries/pass-by-ref.cpp",
-    "Lecture notes/2- Functions and Libraries/Implications/point_free.h",
-    "Lecture notes/2- Functions and Libraries/Implications/point_free.cpp",
-    "Lecture notes/2- Functions and Libraries/Implications/note2.cpp",
-    "Lecture notes/2- Functions and Libraries/Implications/note2",
-    "Lecture notes/2- Functions and Libraries/Implications/demo_free.cpp",
-    "Lecture notes/2- Functions and Libraries/2 - Function and Libraries.md",
-    "Lecture notes/2- Functions and Libraries/CSC3002_Functions_and_Libraries_Part_1_Summary.md",
-    "Lecture notes/2- Functions and Libraries/bruteforce",
-    "Lecture notes/2- Functions and Libraries/bruteforce.cpp",
-    "Lecture notes/2- Functions and Libraries/2 - CSC3002_Lecture Notes Functions and Libraries Part 1.pdf",
-    "Lecture notes/2 - Function and Libraries.md"
+    "Code/Lectures/06 - Arrays and Pointers/array",
+    "Code/Lectures/06 - Arrays and Pointers/array.cpp",
+    "tmp/pdfs/review-set2/verify",
+    "tmp/pdfs/review-set2/verify.cpp",
+    "tmp/pdfs/review-set2/contact-18.png",
+    "tmp/pdfs/review-set2/contact-12.png",
+    "tmp/pdfs/review-set2/contact-6.png",
+    "tmp/pdfs/review-set2/contact-0.png",
+    "tmp/pdfs/review-set2/page-21.png",
+    "tmp/pdfs/review-set2/page-20.png",
+    "tmp/pdfs/review-set2/page-19.png",
+    "tmp/pdfs/review-set2/page-18.png",
+    "tmp/pdfs/review-set2/page-17.png",
+    "tmp/pdfs/review-set2/page-16.png",
+    "tmp/pdfs/review-set2",
+    "Exam Prep/Midterm/2026_CPP_Midterm_Review_Set_2.json",
+    "output/pdf/2026_CPP_Midterm_Review_Set_2.pdf",
+    "Tools/PDF/tutorial20261026/build_review_set2.py",
+    "review",
+    "output/pdf/CSC3002_2021_Final_Midterm_Solutions.pdf",
+    "output/pdf/2026_Targeted_CPP_Practice_Questions.pdf",
+    "Exam Prep/Midterm/CSC3002_Lectures_1-9_Revision_Guide.md",
+    "Notes/08 - Designing Classes/CSC3002_Designing_Classes_Summary.md",
+    "C++ Concept Review.md",
+    "Exam Prep/Midterm/2026_TA_Mock_Midterm_Solutions.md",
+    "Exam Prep/Midterm/2026_TA_Mock_Midterm_Questions.md",
+    "Exam Prep/Midterm/2026-10-26_Tutorial_Review.md",
+    "Notes/09 - Templates and Iterators/CSC3002_Templates_and_Iterators_Summary.md",
+    "Notes/07 - Dynamic Memory Management/CSC3002 — Lecture 7 Dynamic Memory Management in C++.md",
+    "Notes/04 - Strings/CSC3002_Strings_Summary.md",
+    "Notes/03 - Functions and Libraries II/CSC3002_Functions_and_Libraries_Part_2_Summary.md",
+    "Notes/05 - Streams/Stream_Summary_Complete.md",
+    "Notes/05 - Streams/Stream_Summary.md",
+    "Notes/02 - Functions and Libraries I/CSC3002_Functions_and_Libraries_Part_1_Summary.md",
+    "Notes/06 - Arrays and Pointers/Array-and-Pointer_Summary.md",
+    "Notes/02 - Functions and Libraries I/2 - Function and Libraries.md",
+    "output/pdf/CSC3002_Lectures_1-9_Revision_Guide.md",
+    "Midterm/Lecture notes/7- Dynamic memory management/CSC3002 — Lecture 7 Dynamic Memory Management in C++.md",
+    "Midterm/Lecture notes/6 - Array/Array-and-Pointer_Summary.md.md",
+    "Midterm/Lecture notes/5 - Stream/Stream_Summary_Complete.md",
+    "Midterm/Lecture notes/5 - Stream/Stream_Summary.md",
+    "Midterm/Lecture notes/4 - Strings/CSC3002_Strings_Summary.md",
+    "Midterm/Lecture notes/2-Functions and Libraries 1/Week 1/CSC3002_Functions_and_Libraries_Part_1_Summary.md",
+    "Midterm/Lecture notes/2-Functions and Libraries 1/Week 1/2 - Function and Libraries.md",
+    "Midterm/Lecture notes/4-Stream/Stream_Summary_Complete.md",
+    "Midterm/Lecture notes/3-Strings/CSC3002_Strings_Summary.md"
   ]
 }

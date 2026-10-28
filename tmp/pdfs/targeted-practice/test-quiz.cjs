@@ -1,0 +1,14 @@
+const {chromium}=require('/Users/chompunick/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const fs=require('fs');
+(async()=>{const browser=await chromium.launch({headless:true,channel:"chrome"});const page=await browser.newPage({viewport:{width:736,height:1100}});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+const source='/Users/chompunick/.codex/visualizations/2026/10/26/01a178ab-1ee1-76d0-9dde-2ad5f26a1780/cpp-targeted-quiz.html';
+await page.setContent(fs.readFileSync(source,'utf8'));
+await page.locator('#cpp-answer-part1').fill('Money operator+(const Money& rhs) const { return Money{cents + rhs.cents}; }');
+await page.locator('#cpp-next').click();await page.locator('#cpp-prev').click();if(!(await page.locator('#cpp-answer-part1').inputValue()).includes('Money'))throw Error('draft lost');
+await page.locator('#cpp-topic').selectOption('T1');await page.locator('input[value="A"]').check();await page.locator('input[value="C"]').check();await page.locator('#cpp-answer-reason').fill('My reasoning');
+await page.locator('#cpp-submit').click();const report=await page.locator('#cpp-report').inputValue();if(!report.includes('MY CHOICES: A, C'))throw Error('export choices');
+await page.locator('#cpp-export').click();const all=await page.locator('#cpp-report').inputValue();if(!all.includes('A2')||!all.includes('T1'))throw Error('export incomplete');
+await page.locator('#cpp-topic').selectOption('B9');if(!(await page.locator('#cpp-scope').innerText()).includes('not a confirmed'))throw Error('scope');
+await page.locator('#cpp-topic').selectOption('A2');await page.screenshot({path:'tmp/pdfs/targeted-practice/quiz-desktop.png',fullPage:true});
+await page.setViewportSize({width:360,height:1000});await page.screenshot({path:'tmp/pdfs/targeted-practice/quiz-mobile.png',fullPage:true});
+if(errors.length)throw Error(errors.join('\n'));console.log('PASS: navigation, retained drafts, checkbox submission, combined export, scope labels, JavaScript runtime.');await browser.close();})();
