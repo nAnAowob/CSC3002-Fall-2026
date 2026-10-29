@@ -25,12 +25,14 @@
             "id": "6de774d3fa2b767d",
             "type": "leaf",
             "state": {
-              "type": "pdf",
+              "type": "markdown",
               "state": {
-                "file": "output/pdf/2026-10-26_Tutorial_Review.pdf"
+                "file": "Exam Prep/Midterm/Midterm Sample Fall 2026.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-file-text",
-              "title": "2026-10-26_Tutorial_Review"
+              "icon": "lucide-file",
+              "title": "Midterm Sample Fall 2026"
             }
           }
         ],
@@ -203,8 +205,10 @@
   },
   "active": "6de774d3fa2b767d",
   "lastOpenFiles": [
-    "Exam Prep/Midterm/CSC3002_Lectures_1-9_Revision_Guide.md",
+    "Exam Prep/Past Papers/2_CSC3002_Final_2021_Spring.pdf",
+    "Exam Prep/Past Papers/csc3002 final(2).pdf",
     "output/pdf/2026-10-26_Tutorial_Review.pdf",
+    "Exam Prep/Midterm/CSC3002_Lectures_1-9_Revision_Guide.md",
     "Code/Lectures/06 - Arrays and Pointers/array",
     "Code/Lectures/06 - Arrays and Pointers/array.cpp",
     "tmp/pdfs/review-set2/verify",
@@ -223,7 +227,6 @@
     "Exam Prep/Midterm/2026_CPP_Midterm_Review_Set_2.json",
     "output/pdf/2026_CPP_Midterm_Review_Set_2.pdf",
     "Tools/PDF/tutorial20261026/build_review_set2.py",
-    "review",
     "Notes/08 - Designing Classes/CSC3002_Designing_Classes_Summary.md",
     "C++ Concept Review.md",
     "Exam Prep/Midterm/2026_TA_Mock_Midterm_Solutions.md",
